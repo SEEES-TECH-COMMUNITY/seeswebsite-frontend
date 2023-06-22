@@ -66,14 +66,14 @@ pnpm dev
 
 To learn more about React, NextJs, Tailwindcss, Lego-build and Redux Toolkit., take a look at the following resources:
 
-- [Lego Buils Documentation](https://lego-build.github.io/) - Learn about lego build and it's installation.
+- [Lego Build's Documentation](https://lego-build.github.io/) - Learn about lego build and it's installation.
 - [React Documentation](https://beta.reactjs.org) - Learn about React and it's installation.
 - [NextJs Documentation](https://nextjs.org/docs) - Learn about NextJs and it's installation.
 - [Tailwindcss Documentation](https://tailwindcss.com/docs) - Learn about Tailwindcss and it's usage
 - [Redux Toolkit Documentation](https://redux-toolkit.js.org/tutorials/quick-start) - Learn about Redux Tolkit and it's usage
 - [Typescript Documentation](https://www.typescriptlang.org/docs/) - Learn about Redux Tolkit and it's usage
 
-You can check out [the Lego-builds GitHub repository](https://github.com/lego-build/lego-build) - your feedback and contributions are welcome!
+You can check out [the Lego-build's GitHub repository](https://github.com/lego-build/lego-build) - your feedback and contributions are welcome!
 
 You can check out [the NextJs repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
