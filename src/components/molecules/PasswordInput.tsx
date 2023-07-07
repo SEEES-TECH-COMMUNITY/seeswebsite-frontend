@@ -1,5 +1,4 @@
 import LockIcon from "@src/assets/icons/LockIcon";
-import "./global.css";
 import EyeIcon from "@src/assets/icons/EyeIcon";
 
 const PasswordInput = () => {
