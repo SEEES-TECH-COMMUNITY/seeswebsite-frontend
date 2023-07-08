@@ -1,21 +1,23 @@
-import React from "react";
+import React, { type FC } from "react";
 
-const LockIcon = () => {
+interface ILockIcon {
+  className?: string;
+}
+
+const LockIcon: FC<ILockIcon> = (props) => {
   return (
     <svg
-      width="12"
-      height="12"
+      {...props}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="absolute left-3 top-1/2 -translate-y-1/2 transform"
     >
       <path
         d="M17 11.1689V8.16888C17 5.40746 14.7614 3.16888 12 3.16888C9.23858 3.16888 7 5.40746 7 8.16888V11.1689M8.8 21.1689H15.2C16.8802 21.1689 17.7202 21.1689 18.362 20.8419C18.9265 20.5543 19.3854 20.0953 19.673 19.5309C20 18.8891 20 18.049 20 16.3689V15.9689C20 14.2887 20 13.4486 19.673 12.8069C19.3854 12.2424 18.9265 11.7835 18.362 11.4959C17.7202 11.1689 16.8802 11.1689 15.2 11.1689H8.8C7.11984 11.1689 6.27976 11.1689 5.63803 11.4959C5.07354 11.7835 4.6146 12.2424 4.32698 12.8069C4 13.4486 4 14.2887 4 15.9689V16.3689C4 18.049 4 18.8891 4.32698 19.5309C4.6146 20.0953 5.07354 20.5543 5.63803 20.8419C6.27976 21.1689 7.11984 21.1689 8.8 21.1689Z"
         stroke="#1573FF"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

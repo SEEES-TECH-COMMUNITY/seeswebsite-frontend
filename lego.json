@@ -44,7 +44,7 @@
     },
     {
       "type": "uc",
-      "path": "./src/components/util",
+      "path": "./src/components/ui",
       "isFile": true,
       "file": "TSX"
     },
