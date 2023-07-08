@@ -6,11 +6,15 @@ export default {
     extend: {
       colors: {
         grey: {
-            400: '#FBFBFB',
-            800: '#A7B5C1' 
+          700: '#A7B5C1',
+          600: '#F3F3F3',
+          400: '#FBFBFB',
         },
         blue: {
-          600: '#1573FF'
+          600: '#1573FF',
+          placeholder: {
+            600: '#002445',
+          }
         }
       }
     },
