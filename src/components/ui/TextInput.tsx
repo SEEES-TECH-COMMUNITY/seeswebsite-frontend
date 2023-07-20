@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { EmailIcon } from "@src/assets/icons";
-import { type InputError } from "@src/pages/auth/login";
+import { type InputError } from "@src/utils/types/forms.types";
 import React, { type InputHTMLAttributes, type FC } from 'react';
 
 export interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement>{
