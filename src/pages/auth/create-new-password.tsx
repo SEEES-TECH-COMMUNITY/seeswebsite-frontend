@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import type { NextPage } from "next";
 import { PasswordInput, AuthSideBar, TextInput, Button } from "@src/components";
 import { Montserrat, Space_Grotesk } from "next/font/google";
-import { ZodError, z } from "zod";
-import { InputError } from "@src/utils/types/forms.types";
+import { type ZodError, z } from "zod";
+import { type InputError } from "@src/utils/types/forms.types";
 const montserrat = Montserrat({
   weight: ["400"],
   subsets: ["latin", "latin-ext"],
@@ -14,14 +14,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const Page: NextPage = () => {
-  const [email, setEmail] = useState<string>("");
-  const [emailError, setEmailError] = useState<InputError>({
+  const [password, setPassword] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<InputError>({
     error: false,
     message: "",
   });
-
-  const [password, setPassword] = useState<string>("");
-  const [passwordError, setPasswordError] = useState<InputError>({
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState<InputError>({
     error: false,
     message: "",
   });
@@ -36,28 +35,25 @@ const Page: NextPage = () => {
       .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, {
         message:
           "Password must contain at least 8 characters, one uppercase, one lowercase and one number",
-      }),
-    email: z.string().email({ message: "Invalid email address" }),
+      }).nonempty(),
+    confrim_password: z.string().refine((data) => data === password, {
+      message: "Passwords do not match",
+    }),
   });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const userLoginData = userSchema.parse({ email, password });
+      const userLoginData = userSchema.parse({ confirmPassword, password });
       console.log(userLoginData);
     } catch (err: unknown) {
       const errObj = err as ZodError;
       console.log(errObj.errors);
       if (errObj?.errors?.length > 0) {
         errObj?.errors?.forEach((error) => {
-          if (error.path[0] === "email") {
-            setEmailError({
+          if (error.path[0] === "confrim_password") {
+            setConfirmPasswordError({
               error: true,
               message: error.message,
-            });
-          } else {
-            setEmailError({
-              error: false,
-              message: "",
             });
           }
           if (error.path[0] === "password") {
@@ -65,11 +61,6 @@ const Page: NextPage = () => {
             setPasswordError({
               error: true,
               message: error.message,
-            });
-          } else {
-            setPasswordError({
-              error: false,
-              message: "",
             });
           }
         });
@@ -91,28 +82,28 @@ const Page: NextPage = () => {
               <h1
                 className={`text-4xl font-medium tracking-[-0.5px] text-black ${spaceGrotesk.className}`}
               >
-                Welcome Back
+                Create New Password
               </h1>
               <p
                 className={`text-sm font-light tracking-[-0.16px] text-grey-700`}
               >
-                Continue your academic quest in ease with SEEES
+                Please Enter the OTP Code sent to your email
               </p>
             </div>
             <div className="flex flex-col space-y-3">
-              <TextInput
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="Email"
-                error={error}
-                errorObj={emailError}
-              />
               <PasswordInput
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 error={error}
+                placeholder="New password"
                 errorObj={passwordError}
+              />
+              <PasswordInput
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                error={confirmPasswordError.error}
+                placeholder="Confirm password"
+                errorObj={confirmPasswordError}
               />
               {error && (
                 <p className="text-xs text-red-500">
@@ -120,9 +111,6 @@ const Page: NextPage = () => {
                 </p>
               )}
             </div>
-            <h2 className="float-right ml-auto w-fit text-xs font-normal text-blue-600">
-              Forgot Password ?
-            </h2>
             <Button text="Login" type="submit" />
           </form>
         </div>
