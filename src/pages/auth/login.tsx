@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import { PasswordInput, AuthSideBar, TextInput, Button } from "@src/components";
 import { Montserrat, Space_Grotesk } from "next/font/google";
 import { ZodError, z } from "zod";
+import { InputError } from "@src/utils/types/forms.types";
 const montserrat = Montserrat({
   weight: ["400"],
   subsets: ["latin", "latin-ext"],
@@ -11,10 +12,6 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500"],
   subsets: ["latin", "latin-ext"],
 });
-export interface InputError {
-  error: boolean;
-  message: string;
-}
 
 const Page: NextPage = () => {
   const [email, setEmail] = useState<string>("");
