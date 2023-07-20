@@ -21,6 +21,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@ogteam/lego-build": "^1.0.7",
     "@types/eslint": "^8.37.0",
     "@types/node": "^18.16.0",
     "@types/prettier": "^2.7.2",
