@@ -1,6 +1,6 @@
 import React, { type InputHTMLAttributes, useState, type FC } from "react";
 import { LockIcon, EyeIcon } from "@icons/index";
-import { type InputError } from "@src/pages/auth/login";
+import { type InputError } from "@src/utils/types/forms.types";
 
 export interface IPasswordInputProps
   extends InputHTMLAttributes<HTMLInputElement> {
@@ -11,9 +11,9 @@ export interface IPasswordInputProps
 // @Eddy-scion @Victor-Aken Note i extracted the type from the props below
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PasswordInput: FC<IPasswordInputProps> = ({
-  type,
   error,
   errorObj,
+  placeholder,
   ...props
 }) => {
   console.log(errorObj);
@@ -25,7 +25,7 @@ const PasswordInput: FC<IPasswordInputProps> = ({
         <input
           type={showPassword ? "text" : "password"}
           {...props}
-          placeholder="Password"
+          placeholder={placeholder ?? "Password"}
           className="text-bold w-full rounded-lg border-2 border-transparent bg-grey-600 py-3 pl-10 pr-12 font-sans text-xs text-blue-placeholder-600 placeholder-blue-placeholder-600 placeholder-opacity-70 transition-colors duration-300 ease-in focus:border-blue-500 focus:outline-none focus:ring-blue-500 data-true:border-red-500/75"
           data-true={error || errorObj?.error}
         />
