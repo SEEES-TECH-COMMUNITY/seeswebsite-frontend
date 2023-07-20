@@ -35,5 +35,5 @@
     "**/*.mjs",
     "src/pages/auth/login copy.jsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "./template"]
 }
