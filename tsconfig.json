@@ -23,7 +23,7 @@
       "@icons/*": ["./src/assets/icons/*"],
       "@utils/*": ["./src/utils/*"],
       "@app-types/*": ["./src/types/*"],
-      "@services/*": ["./src/utils/services/*"],
+      "@services/*": ["./src/utils/services/*"]
     }
   },
   "include": [
@@ -32,7 +32,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs"
+    "**/*.mjs",
+    "src/pages/auth/login copy.jsx"
   ],
   "exclude": ["node_modules"]
 }
