@@ -1,10 +1,13 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { Montserrat, Space_Grotesk } from "next/font/google";
-import useMultistepForm from "@src/utils/hooks/useMultistepForm";
+import { Button, TextInput } from "@src/components";
+import { InputError } from "@src/utils/types/forms.types";
+import CompleteAccountProgressState from "@src/components/ui/CompleteAccountProgressState";
 import UserPersonalForm from "@src/components/atom/UserPersonalForm";
 import UserAcademicForm from "@src/components/atom/UserAcademicForm";
 import UserContactForm from "@src/components/atom/UserContactForm";
+
 
 const montserrat = Montserrat({
   weight: ["400"],
@@ -15,19 +18,110 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin", "latin-ext"],
 });
 
+export interface FormValues {
+  // Define form field types here
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  stateOfOrigin: string;
+  matNumber: string;
+  currentLevel: string;
+  department: string;
+  address: string;
+  phone: number;
+  nextOfKin: string;
+}
 
 const Page: NextPage = () => {
-  const { steps, currentStepIndex, step, prevStep, nextStep} = useMultistepForm([<UserPersonalForm />, <UserAcademicForm />, <UserContactForm /> ]);
+  const totalSteps = 3;
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState<FormValues>({
+    // Initialize form fields
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    stateOfOrigin: '',
+    matNumber: '',
+    currentLevel: '',
+    department: '',
+    address: '',
+    phone: 0,
+    nextOfKin: '',
+  });
+
+  const goToNextStep = () => {
+    setCurrentStep((prevStep) => prevStep + 1);
+  };
+
+  const goToPrevStep = () => {
+    setCurrentStep((prevStep) => prevStep - 1);
+  };
+
+  const handleSubmit = () => {
+    switch (currentStep) {
+      case 1:
+        submitPersonalForm(formData);
+        break;
+      case 2:
+        submitAcademicForm(formData);
+        break;
+      case 3:
+        submitContactForm(formData);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const submitPersonalForm = (formData: FormValues) => {
+    // Perform API call for Step 1 using formData
+    // console.log('Step 1 Submitted:', formData);
+  };
+
+  const submitAcademicForm = (formData: FormValues) => {
+    // Perform API call for Step 2 using formData
+    // console.log('Step 2 Submitted:', formData);
+  };
+
+  const submitContactForm = (formData: FormValues) => {
+    // Perform API call for Step 2 using formData
+    // console.log('Step 3 Submitted:', formData);
+  };
 
 
-  function handleSubmit(e: FormEvent){
-    e.preventDefault();
-    nextStep();
+
+
+
+
+  let currentStepComponent;
+  switch (currentStep) {
+    case 1:
+      currentStepComponent = (
+        <UserPersonalForm formData={formData} onSubmit={handleSubmit} goToNextStep={goToNextStep} />
+      );
+      break;
+    case 2:
+      currentStepComponent = (
+        <UserAcademicForm formData={formData}  onSubmit={handleSubmit} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
+      );
+      break;
+    case 3:
+      currentStepComponent = (
+        <UserContactForm formData={formData}  onSubmit={handleSubmit} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
+      );
+      break;
+   
+    default:
+      currentStepComponent = (
+        <UserPersonalForm formData={formData} onSubmit={handleSubmit} goToNextStep={goToNextStep} />
+      );
   }
+
+
 
   return (
     <section className={`flex justify-center ${montserrat.className}`}>
-      <div className="w-[580px] pt-14">
+      <div className="w-[450px] pt-16">
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col items-center">
             <h1 className={`text-center text-4xl ${spaceGrotesk.className}`}>
@@ -39,31 +133,9 @@ const Page: NextPage = () => {
               We need some more information to set-up your account correctly.
             </p>
           </div>
-          <div></div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div>
-              <div className="flex items-center justify-center gap-x-6 mb-12 mt-6">
-                <div className="flex items-center justify-center flex-col">
-                  <div className={`text-2xl font-medium h-10 w-10 flex items-center justify-center bg-grey-700 rounded-full text-white ${ currentStepIndex == 0 && 'bg-blue-600'}`}>1</div>
-                  <p className={`text-grey-700 ${ currentStepIndex == 0 && 'text-blue-600'}`}>Personal</p>
-                </div>
-                <div className="flex items-center justify-center flex-col">
-                  <div className={`text-2xl font-medium h-10 w-10 flex items-center justify-center bg-grey-700 rounded-full text-white ${ currentStepIndex === 1 && 'bg-blue-600'}`}>2</div>
-                  <p className=" text-grey-700">Academic</p>
-                </div>
-                <div className="flex items-center justify-center flex-col">
-                  <div className="text-2xl font-medium h-10 w-10 flex items-center justify-center bg-grey-700 rounded-full text-white">3</div>
-                  <p className=" text-grey-700">Contact</p>
-                </div>
-              </div>
-              <div>{step}</div>
-              <div className="items-center justify-center gap-4 flex mt-10">
-                  <button type="button" className={` border-2 border-blue-500 px-12 py-2 rounded-xl text-blue-500 ${ currentStepIndex === 0 && 'hidden'} hover:scale-105 transition duration-150 ease-in-out`} onClick={prevStep}>Back</button>
-                  <button type="submit" className="px-12 py-2 rounded-xl bg-blue-500 text-white hover:scale-105 transition duration-150 ease-in-out">{ currentStepIndex >= steps.length - 1 ? 'Submit' : 'Next'}</button>
-              </div>
-          </div>
-        </form>
+        <CompleteAccountProgressState  totalSteps={totalSteps} currentStep={currentStep}/>
+        {currentStepComponent}
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 import { EmailIcon } from "@src/assets/icons";
 import { type InputError } from "@src/utils/types/forms.types";
 import React, { type InputHTMLAttributes, type FC } from 'react';
+import { twMerge } from "tailwind-merge";
 
 export interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement>{
   type: HTMLInputElement['type'];
@@ -9,7 +10,7 @@ export interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement>{
   errorObj: InputError;
 }
 
-const TextInput: FC<ITextInputProps> = ({ type, error, errorObj,  ...props}) => {
+const TextInput: FC<ITextInputProps> = ({ type, error, errorObj,className,  ...props}) => {
   const getInput = () => {
     switch (type) {
       case 'email':
@@ -30,7 +31,7 @@ const TextInput: FC<ITextInputProps> = ({ type, error, errorObj,  ...props}) => 
           <input
             {...props}
             type={type}
-            className="w-full py-3 rounded-lg h-fit border-2 placeholder-blue-placeholder-600 text-blue-placeholder-600 text-bold border-transparent bg-grey-600 pl-10 pr-12 font-sans text-xs placeholder-opacity-70 focus:border-blue-500 focus:outline-none focus:ring-blue-500 ease-in duration-300 transition-colors data-true:border-red-500/75"
+            className={twMerge('w-full py-3 rounded-lg h-fit border-2 placeholder-blue-placeholder-600 text-blue-placeholder-600 text-bold border-transparent bg-grey-600 pl-10 pr-12 font-sans text-xs placeholder-opacity-70 focus:border-blue-500 focus:outline-none focus:ring-blue-500 ease-in duration-300 transition-colors data-true:border-red-500/75', className)}
             data-true={error || errorObj.error}
           />
         );
