@@ -33,8 +33,7 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "src/pages/auth/login copy.jsx",
-    "src/components/ui/Analytics.jsx"
+    "**/*.jsx"
   ],
   "exclude": ["node_modules", "./template"]
 }

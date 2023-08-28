@@ -16,37 +16,37 @@ const DashSidebar = () => {
           alt="Auth side bar"
           width={500}
           height={500}
-          className=" my-auto h-7 w-7 break-words bg-gray-500 "
+          className=" my-auto h-7 w-auto break-words bg-gray-500"
           priority
         />
         <h1 className="my-auto flex min-w-fit flex-wrap break-words text-sm font-semibold">
           SEEES UNIBEN
         </h1>
       </div>
-      <div className=" mt-4 flex h-auto w-full flex-col  break-words">
+      <div className=" mt-4 flex h-auto w-full flex-col break-words">
         <div className="mt-1 flex w-full space-x-1 p-5  pl-8 text-sm text-gray-700 hover:border-l-4  hover:border-blue-400  hover:bg-blue-100">
-          <DashIcon className="my-auto h-4 w-4 " />
+          <DashIcon className="my-auto h-4 w-auto " />
           <span className="overflow-clip">Dashboard</span>{" "}
         </div>
         <div className="flex w-full space-x-1  p-5 pl-8 text-sm text-gray-700 hover:border-l-4 hover:border-blue-400 hover:bg-blue-100">
-          <UserIcon className="my-auto h-4 w-4" />
+          <UserIcon className="my-auto h-4 w-auto" />
           <span>Users</span>
         </div>
         <div className="flex w-full space-x-1  p-5  pl-8 text-sm text-gray-700 hover:border-l-4 hover:border-blue-400 hover:bg-blue-100">
-          <RequestIcon className="my-auto h-4 w-4" />
+          <RequestIcon className="my-auto h-4 w-auto" />
           <span className="overflow-clip">Request</span>
         </div>
         <div className="flex w-full space-x-1 p-5  pl-8  text-sm  text-gray-700 hover:border-l-4 hover:border-blue-400 hover:bg-blue-100">
-          <AnnounceIcon className="my-auto h-4 w-4" />
+          <AnnounceIcon className="my-auto h-4 w-auto" />
           <span className="overflow-clip">Announcement</span>
         </div>
         <div className="flex w-full space-x-1  p-5   pl-8 text-sm text-gray-700 hover:border-l-4 hover:border-blue-400 hover:bg-blue-100">
-          <ResourceIcon className="my-auto h-4 w-4" />
+          <ResourceIcon className="my-auto h-4 w-auto" />
           <span className="overflow-clip">Resources</span>
         </div>
       </div>
       <div className="mt-auto flex w-full justify-center space-x-2 bg-red-200 p-4 text-red-500">
-        <LogOutIcon className="my-auto h-5 w-5" />
+        <LogOutIcon className="my-auto h-5 w-auto" />
         <span>Logout</span>
       </div>
     </section>

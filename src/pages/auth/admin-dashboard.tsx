@@ -31,13 +31,13 @@ const AdminDashboard = () => {
               </div>
               <div className="my-auto flex space-x-1">
                 <span className="my-auto text-gray-400">Admin</span>
-                <AdminIcon className="my-auto rounded-full bg-orange-200 pt-2" />
+                <AdminIcon className="my-auto h-10 w-auto rounded-full bg-orange-200 pt-2" />
               </div>
             </div>
           </div>
           <div className="flew-wrap mx-auto flex  w-11/12 flex-col">
             <div className="flex space-x-1">
-              <AnalyticsIcon className="my-auto" />
+              <AnalyticsIcon className="my-auto h-8 w-auto" />
               <h2 className="mb-3 mt-2 text-2xl text-gray-600 ">Analytics</h2>
             </div>
 
