@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import React, { type ButtonHTMLAttributes, type FC } from "react";
+
+import React, { type ButtonHTMLAttributes, type FC } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;

@@ -34,7 +34,7 @@ pnpm dev
     ├── ...
     ├── public         # Contains Images and media files
     ├── template       # Contains all config files for lego-build 
-    ├── src            # Conatins all sorce files
+    ├── src            # Conatins all source files
     └── ...
 
 ## src directory
