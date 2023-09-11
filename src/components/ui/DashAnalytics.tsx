@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Montserrat, Space_Grotesk } from "next/font/google";
+
 const montserrat = Montserrat({
   weight: ["400"],
   subsets: ["latin", "latin-ext"],
@@ -28,7 +29,7 @@ const DashAnalytics = ({
     >
       <p className=" justify-items-start font-medium text-gray-600">{text}</p>
       <span
-        className={`justify-items-start text-2xl font-semibold text-gray-600 ${spaceGrotesk.className}`}
+        className={`justify-items-start align-bottom text-2xl font-semibold text-gray-600 ${spaceGrotesk.className}`}
       >
         {number}
       </span>
