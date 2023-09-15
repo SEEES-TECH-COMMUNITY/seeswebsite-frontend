@@ -1,23 +1,25 @@
 import React, { type FC } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface IDashIcon {
   className?: string;
 }
 
-const DashIcon: FC<IDashIcon> = (props) => {
+const DashIcon: FC<IDashIcon> = ({className,...props}) => {
   return (
     <svg
       {...props}
+      className={twMerge("h-6 w-auto stroke-[#7E7E7E]", className)}
       viewBox="0 0 25 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M8.16504 17.0876H16.165M11.1827 2.85165L4.40043 8.12677C3.94706 8.47939 3.72038 8.6557 3.55707 8.8765C3.4124 9.07209 3.30464 9.29243 3.23907 9.5267C3.16504 9.79117 3.16504 10.0783 3.16504 10.6527V17.8876C3.16504 19.0077 3.16504 19.5678 3.38303 19.9956C3.57477 20.3719 3.88073 20.6779 4.25706 20.8696C4.68488 21.0876 5.24493 21.0876 6.36504 21.0876H17.965C19.0851 21.0876 19.6452 21.0876 20.073 20.8696C20.4493 20.6779 20.7553 20.3719 20.9471 19.9956C21.165 19.5678 21.165 19.0077 21.165 17.8876V10.6527C21.165 10.0783 21.165 9.79117 21.091 9.5267C21.0254 9.29243 20.9177 9.07209 20.773 8.8765C20.6097 8.6557 20.383 8.47939 19.9296 8.12677L13.1473 2.85165C12.796 2.57839 12.6204 2.44177 12.4264 2.38925C12.2552 2.34291 12.0748 2.34291 11.9037 2.38925C11.7097 2.44177 11.5341 2.57839 11.1827 2.85165Z"
-        stroke="#7E7E7E"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        stroke=""
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
