@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import React, { type FC } from "react";
 import { Montserrat, Space_Grotesk } from "next/font/google";
 import AnalyticsIcon from "@src/assets/icons/AnalyticsIcon";
@@ -17,11 +18,11 @@ const spaceGrotesk = Space_Grotesk({
 
 const AdminDashboard: FC<IAdminDashboardProps> = () => {
   return (
-    <div className="flex min-h-screen w-full flex-col space-y-6">
-      <div className="flew-wrap mx-auto flex  w-11/12 flex-col">
-        <div className="my-auto mt-6 flex space-x-1">
+    <div className="flex min-h-full w-full flex-col space-y-6">
+      <div className="flew-wrap mx-auto flex  w-11/12 flex-col space-y-4">
+        <div className="my-auto mt-6 flex space-x-1 items-center">
           <AnalyticsIcon className=" h-6 w-auto" />
-          <h2 className=" mb-3 text-2xl text-gray-600 ">Analytics</h2>
+          <h2 className="text-3xl text-gray-600 ">Analytics</h2>
         </div>
 
         <div className="flex flex-wrap justify-between ">
@@ -47,10 +48,10 @@ const AdminDashboard: FC<IAdminDashboardProps> = () => {
           />
         </div>
         <div className="my-auto mt-6 flex justify-between text-gray-500 ">
-          <div className="flex">
+          <div className="flex items-center space-y-1">
             <AnnounceIcon className="my-auto h-6 w-auto" />
             <h2
-              className={`my-auto text-2xl text-gray-600  ${spaceGrotesk.className}`}
+              className={`my-auto text-3xl text-gray-600  ${spaceGrotesk.className}`}
             >
               Announcements
             </h2>

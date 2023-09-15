@@ -6,60 +6,56 @@ import AnnounceIcon from "@src/assets/icons/AnnounceIcon";
 import ResourceIcon from "@src/assets/icons/ResourceIcon";
 import LogOutIcon from "@src/assets/icons/LogoutIcon";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const AdminSidebar: FC = () => {
-  const router = useRouter();
-
-  const handleClick = (e: string) => {
-    router.push(e);
-  };
+  const { pathname } = useRouter();
+  const paths = [
+    {
+      path: "",
+      name: "Dashboard",
+      Icon: DashIcon,
+    },
+    {
+      path: "/users",
+      name: "Users",
+      Icon: UserIcon,
+    },
+    {
+      path: "/requests",
+      name: "Requests",
+      Icon: RequestIcon,
+    },
+    {
+      path: "/announcements",
+      name: "Announcements",
+      Icon: AnnounceIcon,
+    },
+    {
+      path: "/resources",
+      name: "Resources",
+      Icon: ResourceIcon,
+    },
+  ];
 
   return (
-    <section className="flex h-full max-h-fit min-h-screen w-full flex-col overflow-x-visible bg-gray-50 ">
-      <div className=" mt-4 flex h-auto w-full flex-col break-words">
-        <div
-          onClick={() => {
-            handleClick("/admin_pages/dashboard");
-          }}
-          className={`mt-1 flex w-full space-x-1 p-5  pl-8 text-sm text-gray-500 hover:border-l-4  hover:bg-gray-300`}
-        >
-          <DashIcon className="my-auto h-4 w-auto " />
-          <span className="overflow-clip">Dashboard</span>{" "}
-        </div>
-        <div
-          onClick={() => {
-            handleClick("/admin_pages/users");
-          }}
-          className={`flex w-full space-x-1  p-5 pl-8 text-sm text-gray-500 hover:border-l-4 hover:bg-gray-300`}
-        >
-          <UserIcon className="my-auto h-4 w-auto" />
-          <span>Users</span>
-        </div>
-        <div
-          onClick={() => {
-            handleClick("/admin_pages/requests");
-          }}
-          className={`flex w-full  space-x-1  p-5  pl-8 text-sm text-gray-500  hover:bg-gray-300`}
-        >
-          <RequestIcon className="my-auto h-4 w-auto" />
-          <span className="overflow-clip">Request</span>
-        </div>
-        <div
-          onClick={() => handleClick("/admin_pages/announcements")}
-          className={`flex w-full space-x-1 p-5  pl-8 text-sm text-gray-500  hover:border-l-4 hover:bg-gray-300`}
-        >
-          <AnnounceIcon className="my-auto h-4 w-auto" />
-          <span className="overflow-clip">Announcement</span>
-        </div>
-        <div
-          onClick={() => handleClick("/admin_pages/resources")}
-          className={`flex w-full space-x-1  p-5   pl-8 text-sm text-gray-500 hover:border-l-4 hover:bg-gray-300`}
-        >
-          <ResourceIcon className="my-auto h-4 w-auto" />
-          <span className="overflow-clip">Resources</span>
-        </div>
+    <section className="flex h-full min-h-[90vh] justify-between w-full flex-col overflow-x-visible bg-gray-50 ">
+      <div className="pt-4 flex h-auto w-full flex-col break-words space-y-4">
+        {
+          paths.map(({ path, name, Icon }) => (
+            <Link key={`/dashboard${path}`} href={`/dashboard${path}`} >
+              <div
+                className="flex w-full space-x-2 p-5  pl-8 text-sm text-gray-500 border-l-4 border-l-transparent stroke-[#7E7E7E] hover:stroke-blue-600 hover:border-l-blue-600 hover:text-blue-600  hover:bg-blue-600/[0.15] data-true:bg-blue-600/[0.15] transition-colors ease-in duration-500 items-center data-true:stroke-blue-600 data-true:border-l-blue-600 data-true:text-blue-600"
+                data-true={pathname === `/dashboard${path}` || (pathname?.includes(path) && path !== '')}
+              >
+                <Icon className="h-6 w-auto stroke-inherit" />
+                <span className="overflow-clip">{name}</span>{" "}
+              </div>
+            </Link>
+          ))
+        }
       </div>
-      <div className="mt-auto flex w-full justify-center space-x-2 bg-red-200 p-4 text-red-500">
+      <div className="flex w-full justify-center space-x-2 bg-red-200 p-4 text-red-500">
         <LogOutIcon className="my-auto h-5 w-auto" />
         <span>Logout</span>
       </div>
