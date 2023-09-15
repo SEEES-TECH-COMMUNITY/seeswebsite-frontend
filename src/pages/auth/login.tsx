@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import type { NextPage } from "next";
 import { PasswordInput, AuthSideBar, TextInput, Button } from "@src/components";
 import { Montserrat, Space_Grotesk } from "next/font/google";
-import { ZodError, z } from "zod";
-import { InputError } from "@src/utils/types/forms.types";
+import { type ZodError, z } from "zod";
+import { type InputError } from "@src/utils/types/forms.types";
+import { useSignInMutation } from "@src/utils/services/ApiService";
+import { saveToLocalStorage, setWithExpiry } from "@src/utils/constants/tokenName";
+import { ACCESS_TOKEN_NAME, REFRESH_TOKEN_NAME, TOKEN_STORAGE_DURATION } from "@src/utils/constants/keys";
+import { useRouter } from "next/router";
 const montserrat = Montserrat({
   weight: ["400"],
   subsets: ["latin", "latin-ext"],
@@ -15,6 +19,8 @@ const spaceGrotesk = Space_Grotesk({
 
 const Page: NextPage = () => {
   const [email, setEmail] = useState<string>("");
+  const [signin] = useSignInMutation();
+  const { push } = useRouter();
   const [emailError, setEmailError] = useState<InputError>({
     error: false,
     message: "",
@@ -32,21 +38,32 @@ const Page: NextPage = () => {
 
   const userSchema = z.object({
     password: z
-      .string()
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, {
-        message:
-          "Password must contain at least 8 characters, one uppercase, one lowercase and one number",
-      }),
+      .string(),
+    // .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, {
+    //   message:
+    //     "Password must contain at least 8 characters, one uppercase, one lowercase and one number",
+    // }),
     email: z.string().email({ message: "Invalid email address" }),
   });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const userLoginData = userSchema.parse({ email, password });
-      console.log(userLoginData);
+      if (userLoginData) {
+        signin({ email, candidatePassword: password }).unwrap().then((res) => {
+          if (res.success) {
+            setWithExpiry(REFRESH_TOKEN_NAME, res.tokens.refresh_tokens, TOKEN_STORAGE_DURATION)
+            saveToLocalStorage(ACCESS_TOKEN_NAME, res.tokens.access_tokens)
+            void push("/dashboard");
+          }
+        }).catch((err: { data: { response: { data: { message: string } } } }) => {
+          setError(true);
+          setErrorMessage(err?.data?.response?.data?.message);
+        })
+      }
+
     } catch (err: unknown) {
       const errObj = err as ZodError;
-      console.log(errObj.errors);
       if (errObj?.errors?.length > 0) {
         errObj?.errors?.forEach((error) => {
           if (error.path[0] === "email") {
