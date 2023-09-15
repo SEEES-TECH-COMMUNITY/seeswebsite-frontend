@@ -28,7 +28,7 @@ export interface FormValues {
   currentLevel: string;
   department: string;
   address: string;
-  phone: number;
+  phone: string;
   nextOfKin: string;
 }
 
@@ -45,7 +45,7 @@ const Page: NextPage = () => {
     currentLevel: '',
     department: '',
     address: '',
-    phone: 0,
+    phone: '',
     nextOfKin: '',
   });
 
@@ -93,29 +93,30 @@ const Page: NextPage = () => {
 
 
 
-  let currentStepComponent;
+  function renderCurrentStep(currentStep: number) {
   switch (currentStep) {
     case 1:
-      currentStepComponent = (
-        <UserPersonalForm formData={formData} onSubmit={handleSubmit} goToNextStep={goToNextStep} />
+      return (
+        <UserPersonalForm formData={formData} onSubmit={handleSubmit} setFormData={setFormData} goToNextStep={goToNextStep} />
       );
       break;
     case 2:
-      currentStepComponent = (
-        <UserAcademicForm formData={formData}  onSubmit={handleSubmit} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
+      return (
+        <UserAcademicForm formData={formData} onSubmit={handleSubmit} setFormData={setFormData} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
       );
       break;
     case 3:
-      currentStepComponent = (
-        <UserContactForm formData={formData}  onSubmit={handleSubmit} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
+      return(
+        <UserContactForm formData={formData} onSubmit={handleSubmit} setFormData={setFormData} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
       );
       break;
-   
+
     default:
-      currentStepComponent = (
-        <UserPersonalForm formData={formData} onSubmit={handleSubmit} goToNextStep={goToNextStep} />
+      return (
+        <UserPersonalForm formData={formData} onSubmit={handleSubmit} setFormData={setFormData} goToNextStep={goToNextStep} />
       );
   }
+}
 
 
 
@@ -134,8 +135,8 @@ const Page: NextPage = () => {
             </p>
           </div>
         </div>
-        <CompleteAccountProgressState  totalSteps={totalSteps} currentStep={currentStep}/>
-        {currentStepComponent}
+        <CompleteAccountProgressState totalSteps={totalSteps} currentStep={currentStep} />
+        {renderCurrentStep(currentStep)}
       </div>
     </section>
   );
