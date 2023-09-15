@@ -22,7 +22,7 @@
       "@components/*": ["./src/components/*"],
       "@icons/*": ["./src/assets/icons/*"],
       "@utils/*": ["./src/utils/*"],
-      "@app-types/*": ["./src/types/*"],
+      "@app-types/*": ["./src/utils/types/*"],
       "@services/*": ["./src/utils/services/*"]
     }
   },
