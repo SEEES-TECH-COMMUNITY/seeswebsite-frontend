@@ -16,12 +16,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export interface IuserPersonalFormProps {
-  formData: FormValues; 
+  formData: FormValues;
   onSubmit: () => void;
   goToNextStep: () => void;
+  setFormData: React.Dispatch<React.SetStateAction<FormValues>>;
 }
 
-const UserPersonalForm: React.FC<IuserPersonalFormProps> = ({ formData, onSubmit, goToNextStep }) => {
+const UserPersonalForm: React.FC<IuserPersonalFormProps> = ({ formData, onSubmit, goToNextStep, setFormData }) => {
 
   const [firstName, setFirstName] = useState<string>("");
   const [firstNameError, setFirstNameError] = useState<InputError>({
@@ -62,53 +63,53 @@ const UserPersonalForm: React.FC<IuserPersonalFormProps> = ({ formData, onSubmit
 
   return (
     <form onSubmit={handleSubmit}>
-          <div>
-              <div>
-                <h2 className={`${spaceGrotesk.className} text-xl mb-2`}>Personal</h2>
-                <TextInput 
-                  type="text" 
-                  value={firstName} 
-                  onChange={ (e) => setFirstName(e.target.value)}  
-                  error={error}
-                  errorObj={firstNameError} 
-                  placeholder="First Name" 
-                  className="pl-4 text-base mb-3"
-                />
-                <TextInput 
-                  type="text" 
-                  value={lastName} 
-                  onChange={ (e) => setLastName(e.target.value)}  
-                  error={error}
-                  errorObj={lastNameError} 
-                  placeholder="Last Name" 
-                  className="pl-4 text-base mb-3"
-                />
-                <TextInput 
-                  type="date" 
-                  value={dateOfBirth} 
-                  onChange={ (e) => setDateOfBirth(e.target.value)}  
-                  error={error}
-                  errorObj={dateOfBirthError} 
-                  placeholder="Date of Birth" 
-                  className="pl-4 pr-4 text-base mb-3"
-                />
+      <div>
+        <div>
+          <h2 className={`${spaceGrotesk.className} text-xl mb-2`}>Personal</h2>
+          <TextInput
+            type="text"
+            value={formData.firstName}
+            onChange={(e) => setFormData((props) => ({ ...props, firstName: e.target.value }))}
+            error={error}
+            errorObj={firstNameError}
+            placeholder="First Name"
+            className="pl-4 text-base mb-3"
+          />
+          <TextInput
+            type="text"
+            value={formData.lastName}
+            onChange={(e) => setFormData((props) => ({ ...props, lastName: e.target.value }))}
+            error={error}
+            errorObj={lastNameError}
+            placeholder="Last Name"
+            className="pl-4 text-base mb-3"
+          />
+          <TextInput
+            type="date"
+            value={formData.dateOfBirth}
+            onChange={(e) => setFormData((props) => ({ ...props, dateOfBirth: e.target.value }))}
+            error={error}
+            errorObj={dateOfBirthError}
+            placeholder="Date of Birth"
+            className="pl-4 pr-4 text-base mb-3"
+          />
 
-                {/* Udoka i guess you're using the UI libary you talked about here. */}
-                 <TextInput 
-                  type="text" 
-                  value={stateOfOrigin} 
-                  onChange={ (e) => setStateOfOrigin(e.target.value)}  
-                  error={error}
-                  errorObj={stateOfOriginError} 
-                  placeholder="State Of Origin" 
-                  className="pl-4 text-base mb-3"
-                />
-              </div>
-              <div className="items-center justify-center gap-4 flex mt-10">
-                  <Button text="Next" className="px-12 py-2 w-[120px] flex items-center justify-center rounded-xl text-base bg-blue-500 text-white hover:scale-105 transition duration-150 ease-in-out"/>
-              </div>
-          </div>
-        </form>
+          {/* Udoka i guess you're using the UI libary you talked about here. */}
+          <TextInput
+            type="text"
+            value={formData.stateOfOrigin}
+            onChange={(e) => setFormData((props) => ({ ...props, stateOfOrigin: e.target.value }))}
+            error={error}
+            errorObj={stateOfOriginError}
+            placeholder="State Of Origin"
+            className="pl-4 text-base mb-3"
+          />
+        </div>
+        <div className="items-center justify-center gap-4 flex mt-10">
+          <Button text="Next" className="px-12 py-2 w-[120px] flex items-center justify-center rounded-xl text-base bg-blue-500 text-white hover:scale-105 transition duration-150 ease-in-out" />
+        </div>
+      </div>
+    </form>
   );
 }
 export default UserPersonalForm;

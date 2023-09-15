@@ -3,8 +3,8 @@ import React, { type FC } from 'react';
 import { useState } from 'react';
 import { Montserrat, Space_Grotesk } from "next/font/google";
 import { Button, TextInput } from "@src/components";
-import { InputError } from "@src/utils/types/forms.types";
-import { FormValues } from '@src/pages/complete-account-setup';
+import { type InputError } from "@src/utils/types/forms.types";
+import { type FormValues } from '@src/pages/complete-account-setup';
 
 const montserrat = Montserrat({
   weight: ["400"],
@@ -18,12 +18,13 @@ const spaceGrotesk = Space_Grotesk({
 
 export interface IuserAcademicFormProps {
   formData: FormValues;
+  setFormData: React.Dispatch<React.SetStateAction<FormValues>>;
   onSubmit: () => void;
   goToNextStep: () => void;
   goToPrevStep: () => void;
 }
 
-const UserAcademicForm: React.FC<IuserAcademicFormProps> = ({ formData, onSubmit, goToNextStep, goToPrevStep }) => {
+const UserAcademicForm: React.FC<IuserAcademicFormProps> = ({ formData, onSubmit, goToNextStep, goToPrevStep, setFormData }) => {
 
   const [matNumber, setMatNumber] = useState<string>("");
   const [matNumberError, setMatNumberError] = useState<InputError>({
@@ -58,44 +59,44 @@ const UserAcademicForm: React.FC<IuserAcademicFormProps> = ({ formData, onSubmit
 
   return (
     <form onSubmit={handleSubmit}>
-          <div>
-              <div>
-                <h2 className={`${spaceGrotesk.className} text-xl mb-2`}>Academic</h2>
-                <TextInput 
-                  type="text" 
-                  value={matNumber} 
-                  onChange={ (e) => setMatNumber(e.target.value)}  
-                  error={error}
-                  errorObj={matNumberError} 
-                  placeholder="Mat No" 
-                  className="pl-4 text-base mb-3"
-                />
-                <TextInput 
-                  type="text" 
-                  value={currentLevel} 
-                  onChange={ (e) => setCurrentLevel(e.target.value)}  
-                  error={error}
-                  errorObj={currentLevelError} 
-                  placeholder="Current Level" 
-                  className="pl-4 text-base mb-3"
-                />
-                <TextInput 
-                  type="text" 
-                  value={department} 
-                  onChange={ (e) => setDepartment(e.target.value)}  
-                  error={error}
-                  errorObj={departmentError} 
-                  placeholder="Department" 
-                  className="pl-4 pr-4 text-base mb-3"
-                />
+      <div>
+        <div>
+          <h2 className={`${spaceGrotesk.className} text-xl mb-2`}>Academic</h2>
+          <TextInput
+            type="text"
+            value={formData.matNumber}
+            onChange={(e) => setFormData((props) => ({ ...props, matNumber: e.target.value }))}
+            error={error}
+            errorObj={matNumberError}
+            placeholder="Mat No"
+            className="pl-4 text-base mb-3"
+          />
+          <TextInput
+            type="text"
+            value={formData.currentLevel}
+            onChange={(e) => setFormData((props) => ({ ...props, currentLevel: e.target.value }))}
+            error={error}
+            errorObj={currentLevelError}
+            placeholder="Current Level"
+            className="pl-4 text-base mb-3"
+          />
+          <TextInput
+            type="text"
+            value={formData.department}
+            onChange={(e) => setFormData((props) => ({ ...props, department: e.target.value }))}
+            error={error}
+            errorObj={departmentError}
+            placeholder="Department"
+            className="pl-4 pr-4 text-base mb-3"
+          />
 
-              </div>
-              <div className="items-center justify-center gap-4 flex mt-10">
-                  <Button text="Back" onClick={goToPrevStep}  className="border-2 border-blue-500 px-12 py-2 rounded-xl w-[120px] flex items-center justify-center text-blue-500 text-base bg-white  hover:scale-105 transition duration-150 ease-in-out"/>
-                  <Button text="Next" className="px-12 py-2 w-[120px] flex items-center justify-center rounded-xl text-base bg-blue-500 text-white hover:scale-105 transition duration-150 ease-in-out"/>
-              </div>
-          </div>
-        </form>
+        </div>
+        <div className="items-center justify-center gap-4 flex mt-10">
+          <Button text="Back" onClick={goToPrevStep} className="border-2 border-blue-500 px-12 py-2 rounded-xl w-[120px] flex items-center justify-center text-blue-500 text-base bg-white  hover:scale-105 transition duration-150 ease-in-out" />
+          <Button text="Next" className="px-12 py-2 w-[120px] flex items-center justify-center rounded-xl text-base bg-blue-500 text-white hover:scale-105 transition duration-150 ease-in-out" />
+        </div>
+      </div>
+    </form>
   );
 }
 export default UserAcademicForm;
