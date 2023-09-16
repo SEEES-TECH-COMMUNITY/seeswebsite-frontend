@@ -9,7 +9,7 @@
     "rsc": false,
     "tsx": true,
     "aliases": {
-      "utils": "@utils/functions",
+      "utils": "@utils/function",
       "components": "src/components/ui"
     }
 }
