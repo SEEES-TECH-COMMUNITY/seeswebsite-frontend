@@ -7,9 +7,11 @@ import ResourceIcon from "@src/assets/icons/ResourceIcon";
 import LogOutIcon from "@src/assets/icons/LogoutIcon";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { removeFromLocalStorage } from "@src/utils/function/storageUtils";
+import { ACCESS_TOKEN_NAME, REFRESH_TOKEN_NAME } from "@src/utils/constants/keys";
 
 const AdminSidebar: FC = () => {
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
   const paths = [
     {
       path: "",
@@ -37,9 +39,13 @@ const AdminSidebar: FC = () => {
       Icon: ResourceIcon,
     },
   ];
-
+   function handleLogout(){
+    removeFromLocalStorage(REFRESH_TOKEN_NAME);
+    removeFromLocalStorage(ACCESS_TOKEN_NAME);
+    void push('/auth/login')
+   }
   return (
-    <section className="flex h-full min-h-[90vh] justify-between w-full flex-col overflow-x-visible bg-gray-50 ">
+    <section className="flex min-h-screen sticky top-0 justify-between w-full flex-col overflow-x-visible bg-gray-50 ">
       <div className="pt-4 flex h-auto w-full flex-col break-words space-y-4">
         {
           paths.map(({ path, name, Icon }) => (
@@ -55,7 +61,7 @@ const AdminSidebar: FC = () => {
           ))
         }
       </div>
-      <div className="flex w-full justify-center space-x-2 bg-red-200 p-4 text-red-500">
+      <div onClick={handleLogout} className="flex w-full justify-center space-x-2 bg-red-200 p-4 text-red-500 cursor-pointer">
         <LogOutIcon className="my-auto h-5 w-auto" />
         <span>Logout</span>
       </div>
