@@ -14,13 +14,13 @@
     },
     {
       "type": "atom",
-      "path": "./src/components/atom",
+      "path": "./src/components/atoms",
       "isFile": true,
       "file": "TSX"
     },
     {
       "type": "a",
-      "path": "./src/components/atom",
+      "path": "./src/components/atoms",
       "isFile": true,
       "file": "TSX"
     },
