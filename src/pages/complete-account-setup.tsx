@@ -4,9 +4,11 @@ import { Montserrat, Space_Grotesk } from "next/font/google";
 import { Button, TextInput } from "@src/components";
 import { InputError } from "@src/utils/types/forms.types";
 import CompleteAccountProgressState from "@src/components/ui/CompleteAccountProgressState";
-import UserPersonalForm from "@src/components/atom/UserPersonalForm";
-import UserAcademicForm from "@src/components/atom/UserAcademicForm";
-import UserContactForm from "@src/components/atom/UserContactForm";
+import UserPersonalForm from "@src/components/atoms/UserPersonalForm";
+import UserAcademicForm from "@src/components/atoms/UserAcademicForm";
+import UserContactForm from "@src/components/atoms/UserContactForm";
+import { useCompleteSignupMutation } from "@src/utils/services/ApiService";
+import { useRouter } from "next/router";
 
 
 const montserrat = Montserrat({
@@ -31,12 +33,24 @@ export interface FormValues {
   phone: string;
   nextOfKin: string;
 }
+export interface IFormError{
+  firstName: boolean;
+  lastName: boolean;
+  dateOfBirth: boolean;
+  stateOfOrigin: boolean;
+  matNumber: boolean;
+  currentLevel: boolean;
+  department: boolean;
+  address: boolean;
+  phone: boolean;
+  nextOfKin: boolean;
+}
 
 const Page: NextPage = () => {
   const totalSteps = 3;
   const [currentStep, setCurrentStep] = useState(1);
+  const [completeSignUp] = useCompleteSignupMutation();
   const [formData, setFormData] = useState<FormValues>({
-    // Initialize form fields
     firstName: '',
     lastName: '',
     dateOfBirth: '',
@@ -48,7 +62,19 @@ const Page: NextPage = () => {
     phone: '',
     nextOfKin: '',
   });
-
+  const [formError, setFormError] = useState<IFormError>({
+    firstName: false,
+    lastName: false,
+    dateOfBirth: false,
+    stateOfOrigin: false,
+    matNumber: false,
+    currentLevel: false,
+    department: false,
+    address: false,
+    phone: false,
+    nextOfKin: false,
+  });
+  const {push} = useRouter();
   const goToNextStep = () => {
     setCurrentStep((prevStep) => prevStep + 1);
   };
@@ -58,38 +84,25 @@ const Page: NextPage = () => {
   };
 
   const handleSubmit = () => {
-    switch (currentStep) {
-      case 1:
-        submitPersonalForm(formData);
-        break;
-      case 2:
-        submitAcademicForm(formData);
-        break;
-      case 3:
-        submitContactForm(formData);
-        break;
-      default:
-        break;
-    }
+    completeSignUp({
+      username: `${formData.firstName} ${formData.lastName}`,
+      dateOfBirth: formData.dateOfBirth,
+      stateOfOrigin: formData.stateOfOrigin,
+      matNumber: formData.matNumber,
+      level: formData.currentLevel,
+      middleName: '',
+      phoneNumber: formData.phone,
+      department: formData.department,
+      address: formData.address,
+      nextOfKin: formData.nextOfKin,
+    })
+    .unwrap()
+    .then((res) => {
+      if(res.success){
+        void push('/dashboard');
+      }
+    }).catch((err) => console.log(err));
   };
-
-  const submitPersonalForm = (formData: FormValues) => {
-    // Perform API call for Step 1 using formData
-    // console.log('Step 1 Submitted:', formData);
-  };
-
-  const submitAcademicForm = (formData: FormValues) => {
-    // Perform API call for Step 2 using formData
-    // console.log('Step 2 Submitted:', formData);
-  };
-
-  const submitContactForm = (formData: FormValues) => {
-    // Perform API call for Step 2 using formData
-    // console.log('Step 3 Submitted:', formData);
-  };
-
-
-
 
 
 
@@ -97,23 +110,23 @@ const Page: NextPage = () => {
   switch (currentStep) {
     case 1:
       return (
-        <UserPersonalForm formData={formData} onSubmit={handleSubmit} setFormData={setFormData} goToNextStep={goToNextStep} />
+        <UserPersonalForm formData={formData} onSubmit={handleSubmit} setFormError={setFormError} formError={formError} setFormData={setFormData} goToNextStep={goToNextStep} />
       );
       break;
     case 2:
       return (
-        <UserAcademicForm formData={formData} onSubmit={handleSubmit} setFormData={setFormData} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
+        <UserAcademicForm formData={formData} onSubmit={handleSubmit} setFormError={setFormError} formError={formError} setFormData={setFormData} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
       );
       break;
     case 3:
       return(
-        <UserContactForm formData={formData} onSubmit={handleSubmit} setFormData={setFormData} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
+        <UserContactForm formData={formData} onSubmit={handleSubmit} setFormError={setFormError} formError={formError} setFormData={setFormData} goToPrevStep={goToPrevStep} goToNextStep={goToNextStep} />
       );
       break;
 
     default:
       return (
-        <UserPersonalForm formData={formData} onSubmit={handleSubmit} setFormData={setFormData} goToNextStep={goToNextStep} />
+        <UserPersonalForm formData={formData} onSubmit={handleSubmit} setFormData={setFormData} setFormError={setFormError} formError={formError} goToNextStep={goToNextStep} />
       );
   }
 }
@@ -121,7 +134,7 @@ const Page: NextPage = () => {
 
 
   return (
-    <section className={`flex justify-center ${montserrat.className}`}>
+    <section className={`flex justify-center ${montserrat.className} select-none`}>
       <div className="w-[450px] pt-16">
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col items-center">
