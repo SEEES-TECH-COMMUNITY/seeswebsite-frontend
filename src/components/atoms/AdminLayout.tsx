@@ -1,7 +1,8 @@
-import { FC, ReactNode } from "react";
+import React, { type FC, type ReactNode } from "react";
 import AdminSidebar from "./AdminSidebar";
 import AdminHeader from "./AdminHeader";
 import { Montserrat, Space_Grotesk } from "next/font/google";
+import AuthProvider from "./AuthProvider";
 
 export interface ILayoutProps {
   children: ReactNode;
@@ -30,6 +31,7 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
         </div>
         <div className=" w-5/6 basis-5/6">{children}</div>
       </div>
+      <AuthProvider />
     </section>
   );
 };
