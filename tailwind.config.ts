@@ -44,6 +44,7 @@ export default {
     },
     data: {
       true: 'true="true"',
+      details: 'details="true"',
     },
   },
   plugins: [],
