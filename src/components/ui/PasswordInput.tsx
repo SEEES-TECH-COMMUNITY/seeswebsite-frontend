@@ -22,7 +22,6 @@ const PasswordInput: FC<IPasswordInputProps> = ({
   iconClassName,
   ...props
 }) => {
-  console.log(errorObj);
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="flex w-full flex-col space-y-0.5">
