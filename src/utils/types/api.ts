@@ -30,10 +30,31 @@ export interface resetPasswordBody {
 }
 export interface LoginResponse {
   response: {
-    success: true;
+    success: boolean;
     tokens: {
       access_tokens: string;
       refresh_tokens: string;
     };
+    active: boolean;
+  };
+}
+
+export interface RefreshResponse {
+  response: {
+    access_tokens: string;
+    refresh_tokens: string;
+  };
+}
+
+export interface ICompleteAccountResponse {
+  response: {
+    success: true;
+    data: { message: string };
+  };
+}
+export interface IForgotPassword {
+  response: {
+    success: boolean;
+    message: string;
   };
 }
