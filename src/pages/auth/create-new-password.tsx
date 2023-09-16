@@ -44,10 +44,8 @@ const Page: NextPage = () => {
     e.preventDefault();
     try {
       const userLoginData = userSchema.parse({ confirmPassword, password });
-      console.log(userLoginData);
     } catch (err: unknown) {
       const errObj = err as ZodError;
-      console.log(errObj.errors);
       if (errObj?.errors?.length > 0) {
         errObj?.errors?.forEach((error) => {
           if (error.path[0] === "confrim_password") {
@@ -57,7 +55,6 @@ const Page: NextPage = () => {
             });
           }
           if (error.path[0] === "password") {
-            console.log(error.message)
             setPasswordError({
               error: true,
               message: error.message,

@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import type { NextPage } from "next";
 import { AuthSideBar, Button, PasswordInput } from "@src/components";
 import { Montserrat, Space_Grotesk } from "next/font/google";
@@ -7,11 +7,11 @@ import { InputError } from "@src/utils/types/forms.types";
 const montserrat = Montserrat({
     weight: ["400", "500"],
     subsets: ["latin", "latin-ext"],
-  });
-  const spaceGrotesk = Space_Grotesk({
+});
+const spaceGrotesk = Space_Grotesk({
     weight: ["500"],
     subsets: ["latin", "latin-ext"],
-  });
+});
 
 const Page: NextPage = () => {
     const [password, setPassword] = useState<string>("");
@@ -22,7 +22,7 @@ const Page: NextPage = () => {
 
 
 
-    return(
+    return (
         <section className={`flex flex-row ${montserrat.className}`}>
             <div className="w-5/12 basis-5/12 block">
                 <AuthSideBar />
@@ -52,7 +52,7 @@ const Page: NextPage = () => {
             </div>
         </section>
     )
-  }
+}
 
 
-  export default Page;
+export default Page;

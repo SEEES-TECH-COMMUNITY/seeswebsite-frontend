@@ -5,9 +5,10 @@ import { Montserrat, Space_Grotesk } from "next/font/google";
 import { type ZodError, z } from "zod";
 import { type InputError } from "@src/utils/types/forms.types";
 import { useSignInMutation } from "@src/utils/services/ApiService";
-import { saveToLocalStorage, setWithExpiry } from "@src/utils/constants/tokenName";
+import { saveToLocalStorage, setWithExpiry } from "@src/utils/function/storageUtils";
 import { ACCESS_TOKEN_NAME, REFRESH_TOKEN_NAME, TOKEN_STORAGE_DURATION } from "@src/utils/constants/keys";
 import { useRouter } from "next/router";
+import Link from "next/link";
 const montserrat = Montserrat({
   weight: ["400"],
   subsets: ["latin", "latin-ext"],
@@ -54,7 +55,11 @@ const Page: NextPage = () => {
           if (res.success) {
             setWithExpiry(REFRESH_TOKEN_NAME, res.tokens.refresh_tokens, TOKEN_STORAGE_DURATION)
             saveToLocalStorage(ACCESS_TOKEN_NAME, res.tokens.access_tokens)
-            void push("/dashboard");
+            if (res.active) {
+              void push("/dashboard");
+            } else {
+              void push("/complete-account-setup");
+            }
           }
         }).catch((err: { data: { response: { data: { message: string } } } }) => {
           setError(true);
@@ -78,7 +83,6 @@ const Page: NextPage = () => {
             });
           }
           if (error.path[0] === "password") {
-            console.log(error.message)
             setPasswordError({
               error: true,
               message: error.message,
@@ -137,9 +141,9 @@ const Page: NextPage = () => {
                 </p>
               )}
             </div>
-            <h2 className="float-right ml-auto w-fit text-xs font-normal text-blue-600">
+            <Link href="/auth/forgot-password" className="float-right ml-auto w-fit text-xs font-normal text-blue-600">
               Forgot Password ?
-            </h2>
+            </Link>
             <Button text="Login" type="submit" />
           </form>
         </div>
