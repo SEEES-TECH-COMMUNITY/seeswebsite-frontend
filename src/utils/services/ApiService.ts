@@ -1,5 +1,14 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { type BaseQueryApi, type FetchArgs, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  type BaseQueryApi,
+  type FetchArgs,
+  createApi,
+  fetchBaseQuery,
+  type FetchBaseQueryMeta,
+  type FetchBaseQueryError,
+  type BaseQueryFn,
+} from "@reduxjs/toolkit/query/react";
 import ApiRoutes from "../constants/routes";
 import type {
   SignupBody,
@@ -8,9 +17,23 @@ import type {
   resendEmailVerificationCodeBody,
   resetPasswordBody,
   LoginResponse,
+  RefreshResponse,
+  ICompleteAccountResponse,
 } from "@app-types/api";
-import { getFromLocalStorage } from "../constants/tokenName";
-import { ACCESS_TOKEN_NAME } from "../constants/keys";
+import {
+  getFromLocalStorage,
+  getWithExpiry,
+  removeFromLocalStorage,
+  saveToLocalStorage,
+  setWithExpiry,
+} from "../function/storageUtils";
+import {
+  ACCESS_TOKEN_NAME,
+  REFRESH_TOKEN_NAME,
+  TOKEN_STORAGE_DURATION,
+} from "../constants/keys";
+import { Router } from "next/router";
+import { redirect } from "next/navigation";
 
 const ApiHeaders = {
   Accept: "application/json",
@@ -52,29 +75,58 @@ const requestWithHeader = (
 });
 const baseQuery = fetchBaseQuery({
   baseUrl,
-  prepareHeaders: (headers) => {
-    const token = getFromLocalStorage<string>(ACCESS_TOKEN_NAME);
-
-    if (token) {
+  prepareHeaders: (headers, api) => {
+    let token = getFromLocalStorage<string>(ACCESS_TOKEN_NAME);
+    if (typeof token === "string") {
+      headers.set("authorization", `Bearer ${token}`);
+    } else {
+      token = getWithExpiry<string>(REFRESH_TOKEN_NAME).value ?? "";
       headers.set("authorization", `Bearer ${token}`);
     }
     return headers;
   },
 });
-const baseQueryWithResult = async (args: string | FetchArgs, api: BaseQueryApi, extraOptions: Record<string, string>) => {
+const baseQueryWithResult: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError,
+  {},
+  FetchBaseQueryMeta
+> = async (args: string | FetchArgs, api: BaseQueryApi, extraOptions: {}) => {
   const result = await baseQuery(args, api, extraOptions);
   if (result.error?.status === 401) {
-    const refreshResult = await baseQuery(ApiRoutes.refresh, api, extraOptions);
-    console.log(refreshResult);
-    return refreshResult;
-    // result = await baseQuery(args, api, extraOptions);
+    removeFromLocalStorage(ACCESS_TOKEN_NAME);
+    const refreshResult = await baseQuery(
+      {
+        url: ApiRoutes.refresh,
+        method: "POST",
+      },
+      api,
+      extraOptions
+    );
+    if (refreshResult.error?.status !== 401) {
+      // setWithExpiry<string>(
+      //   ACCESS_TOKEN_NAME,
+      //   refreshResult.data?.access_token ?? "",
+      //   3600000
+      // );
+      const res = refreshResult?.error?.data as RefreshResponse;
+      saveToLocalStorage(ACCESS_TOKEN_NAME, res.response.access_tokens);
+      const originalRequest = await baseQuery(args, api, extraOptions);
+      return originalRequest;
     } else {
-    return result;
+      removeFromLocalStorage(ACCESS_TOKEN_NAME);
+      removeFromLocalStorage(REFRESH_TOKEN_NAME);
+      window.location.href = "/auth/login";
+      return refreshResult;
     }
+  } else {
+    return result;
+  }
 };
 const ApiService = createApi({
   reducerPath: "apiService",
-  baseQuery: baseQuery,
+  baseQuery: baseQueryWithResult,
   tagTypes: ["Post", "Get", "Patch"],
   endpoints: (builder) => ({
     signUp: builder.mutation({
@@ -99,6 +151,8 @@ const ApiService = createApi({
           "POST",
           body
         ),
+      transformResponse: (response: ICompleteAccountResponse) =>
+        response.response,
       invalidatesTags: ["Post"],
     }),
     getAccount: builder.query({
@@ -144,6 +198,7 @@ const ApiService = createApi({
           ApiRoutes.forgot_password.replace("{email}", email),
           "POST"
         ),
+      transformResponse: (response: ICompleteAccountResponse) => response.response,
       invalidatesTags: ["Post"],
     }),
   }),
