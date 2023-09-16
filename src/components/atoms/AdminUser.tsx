@@ -36,7 +36,6 @@ import {
   DropdownMenuSeparator,
 } from "../ui/dropdown-menu/dropdown-menu";
 import { Button, PasswordInput, TextInput } from "../ui";
-console.log(data.data);
 interface DataType {
   id: number;
   name: string;
