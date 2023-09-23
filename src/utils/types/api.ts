@@ -58,3 +58,42 @@ export interface IForgotPassword {
     message: string;
   };
 }
+
+export interface IUser {
+  response: {
+    success: true;
+    data: {
+      _id: string;
+      userID: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      role: string;
+      confirmationCode: string;
+      confirmationCodeExpires: string;
+      active: true;
+      createdAt: string;
+      updatedAt: string;
+      address: string;
+      dateOfBirth: string;
+      department: string;
+      level: number;
+      matNumber: string;
+      nextOfKin: string;
+      phoneNumber: number | string;
+      stateOfOrigin: string;
+      username: string;
+      passwordResetExpires: string;
+      passwordResetToken: string;
+    };
+  };
+}
+
+export interface IAnnouncements {
+  _id: string;
+  author: string;
+  body: string;
+  createdAt: string;
+  topic: string;
+  updatedAt: string;
+}
