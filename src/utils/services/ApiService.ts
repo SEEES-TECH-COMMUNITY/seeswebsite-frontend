@@ -19,6 +19,8 @@ import type {
   LoginResponse,
   RefreshResponse,
   ICompleteAccountResponse,
+  IUser,
+  IAnnouncements,
 } from "@app-types/api";
 import {
   getFromLocalStorage,
@@ -110,7 +112,7 @@ const baseQueryWithResult: BaseQueryFn<
       //   refreshResult.data?.access_token ?? "",
       //   3600000
       // );
-      const res = refreshResult?.error?.data as RefreshResponse;
+      const res = refreshResult?.data as RefreshResponse;
       saveToLocalStorage(ACCESS_TOKEN_NAME, res.response.access_tokens);
       const originalRequest = await baseQuery(args, api, extraOptions);
       return originalRequest;
@@ -159,6 +161,18 @@ const ApiService = createApi({
       query: () => createRequest(ApiRoutes.get_account, "GET"),
       providesTags: ["Get"],
     }),
+    getUser: builder.query({
+      query: () => createRequest(ApiRoutes.get_user, "GET"),
+      providesTags: ["Get"],
+      transformResponse: (response: IUser) => response.response,
+    }),
+    getAllUsers: builder.query({
+      query: () => createRequest(ApiRoutes.get_all_user, "GET"),
+      providesTags: ["Get"],
+      transformResponse: (response: {
+        response: { data: IUser["response"]["data"][] };
+      }) => response?.response?.data,
+    }),
     refresh: builder.mutation({
       query: () => createRequest(ApiRoutes.refresh, "POST"),
       invalidatesTags: ["Post"],
@@ -198,8 +212,27 @@ const ApiService = createApi({
           ApiRoutes.forgot_password.replace("{email}", email),
           "POST"
         ),
-      transformResponse: (response: ICompleteAccountResponse) => response.response,
+      transformResponse: (response: ICompleteAccountResponse) =>
+        response.response,
       invalidatesTags: ["Post"],
+    }),
+    getAllAnnouncements: builder.query({
+      query: () => createRequest(ApiRoutes.get_all_announcements, "GET"),
+      providesTags: ["Get"],
+      transformResponse: (response: {
+        response: { data: IAnnouncements[] };
+      }) => response?.response?.data,
+    }),
+    getAnnouncement: builder.query({
+      query: (id: string) =>
+        createRequest(
+          ApiRoutes.get_announcement.replace("{id}", id),
+          "GET"
+        ),
+      providesTags: ["Get"],
+      transformResponse: (response: {
+        response: { data: IAnnouncements };
+      }) => response?.response?.data,
     }),
   }),
 });
@@ -215,5 +248,9 @@ export const {
   useResendConfirmationEmailMutation,
   useResetPasswordMutation,
   useForgotPasswordMutation,
+  useGetUserQuery,
+  useGetAllUsersQuery,
+  useGetAllAnnouncementsQuery,
+  useGetAnnouncementQuery,
 } = ApiService;
 export default ApiService;
