@@ -36,12 +36,13 @@ import {
   DropdownMenuSeparator,
 } from "../ui/dropdown-menu/dropdown-menu";
 import { Button, PasswordInput, TextInput } from "../ui";
+import { useGetAllUsersQuery } from "@src/utils/services/ApiService";
 interface DataType {
   id: number;
-  name: string;
+  username: string;
   user_image: string;
   gender: string;
-  mat_no: string;
+  matNumber: string;
   role: string;
 }
 function renderRole(val: string): ReactNode {
@@ -75,34 +76,34 @@ function renderRole(val: string): ReactNode {
 const columns: ColumnDef<DataType>[] = [
   {
     header: "Name",
-    accessorKey: "name",
+    accessorKey: "username",
     cell: ({ row }) => (
       <div className="flex items-center space-x-2">
         <Image
           src={`/user.png`}
-          alt={row.getValue("name")}
+          alt={row.getValue("username")}
           width={50}
           height={50}
           className="h-12 w-12 rounded-full"
         />
-        <span className="">{row.getValue("name")}</span>
+        <span className="">{row.getValue("username") ?? "N/A"}</span>
       </div>
     ),
   },
   {
     header: "Gender",
     accessorKey: "gender",
-    cell: ({ row }) => <span>{row.getValue("gender")}</span>,
+    cell: ({ row }) => <span>{row.getValue("gender") ?? "N/A"}</span>,
   },
   {
     header: "Mat No",
-    accessorKey: "mat_no",
-    cell: ({ row }) => <span>{row.getValue("mat_no")}</span>,
+    accessorKey: "matNumber",
+    cell: ({ row }) => <span>{row.getValue("matNumber") ?? "N/A"}</span>,
   },
   {
     header: "Role",
     accessorKey: "role",
-    cell: ({ row }) => renderRole(row.getValue("role")),
+    cell: ({ row }) => renderRole(row.getValue("role") ?? "N/A"),
   },
   {
     id: "actions",
@@ -137,12 +138,21 @@ const columns: ColumnDef<DataType>[] = [
 ];
 const AdminUser: FC = () => {
   const [search, setSearch] = useState<string>("");
-
+  const { data: allUsers } = useGetAllUsersQuery(undefined);
+  console.log(allUsers);
   // const data = [...transFormToTableData(AgentData?.data?.data ?? []), ...transFormToTableData(AgentData?.data?.data ?? [])];
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const table = useReactTable({
-    data: data.data,
+    data:
+      allUsers?.map((user) => ({
+        id: user._id,
+        username: user?.username ?? "N/A",
+        user_image: "N/A",
+        gender: "N/A",
+        matNumber: user?.matNumber ?? "N/A",
+        role: user?.role ?? "N/A",
+      })) ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -217,7 +227,10 @@ const AdminUser: FC = () => {
                 iconClassName="space-y-4 h-6 w-auto -top-3 bottom-0"
                 hideIcon
               />
-              <Button text="Add User" className="mt-6 font-normal py-4 text-base" />
+              <Button
+                text="Add User"
+                className="mt-6 py-4 text-base font-normal"
+              />
             </div>
           </SheetContent>
         </Sheet>

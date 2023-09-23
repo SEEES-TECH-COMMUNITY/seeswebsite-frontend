@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import Image from "next/image";
 import React, { type FC } from "react";
 import { Montserrat, Space_Grotesk } from "next/font/google";
 import AdminIcon from "@src/assets/icons/AdminIcon";
+import { useSelector } from "react-redux";
+import { RootState } from "@src/utils/services/store";
 export interface IAdminHeaderProps {}
 
 const montserrat = Montserrat({
@@ -14,6 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const AdminHeader: FC<IAdminHeaderProps> = () => {
+  const user = useSelector((state: RootState) => state.user);
   return (
     <div className="flex">
       <div className="w-1/6">
@@ -39,10 +43,10 @@ const AdminHeader: FC<IAdminHeaderProps> = () => {
             <div
               className={`my-auto text-lg font-normal text-gray-500 ${spaceGrotesk.className}`}
             >
-              Hello, Victor Adepoju
+              Hello, {user?.user?.username}
             </div>
             <div className="my-auto flex space-x-1">
-              <span className="my-auto text-gray-400">Admin</span>
+              <span className="my-auto text-gray-400 capitalize">{user?.user?.role}</span>
               <AdminIcon className="my-auto h-10 w-auto rounded-full bg-orange-200 pt-2" />
             </div>
           </div>
