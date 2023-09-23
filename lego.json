@@ -26,7 +26,7 @@
     },
     {
       "type": "m",
-      "path": "./src/components/molecule",
+      "path": "./src/components/molecules",
       "isFile": true,
       "file": "TSX"
     },
