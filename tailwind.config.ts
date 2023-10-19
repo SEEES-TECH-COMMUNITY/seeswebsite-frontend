@@ -47,5 +47,7 @@ export default {
       details: 'details="true"',
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 } satisfies Config;
