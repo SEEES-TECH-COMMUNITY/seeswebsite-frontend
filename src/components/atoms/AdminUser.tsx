@@ -38,12 +38,12 @@ import {
 import { Button, PasswordInput, TextInput } from "../ui";
 import { useGetAllUsersQuery } from "@src/utils/services/ApiService";
 interface DataType {
-  id: number;
-  username: string;
-  user_image: string;
-  gender: string;
-  matNumber: string;
-  role: string;
+  id?: string;
+  username?: string;
+  user_image?: string;
+  gender?: string;
+  matNumber?: string;
+  role?: string;
 }
 function renderRole(val: string): ReactNode {
   switch (val) {
@@ -124,7 +124,7 @@ const columns: ColumnDef<DataType>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem className="leading-8" />
             <DropdownMenuItem>
-              <Link href={`/dispatch-management/dashboard/agents/${user.id}`}>
+              <Link href={`/dispatch-management/dashboard/agents/${user.id || ""}`}>
                 View User
               </Link>
             </DropdownMenuItem>
