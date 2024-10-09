@@ -1,4 +1,4 @@
-# SEES Website
+# SEEES Website
 
 # Getting Started
 
@@ -71,7 +71,7 @@ To learn more about React, NextJs, Tailwindcss, Lego-build and Redux Toolkit., t
 - [NextJs Documentation](https://nextjs.org/docs) - Learn about NextJs and it's installation.
 - [Tailwindcss Documentation](https://tailwindcss.com/docs) - Learn about Tailwindcss and it's usage
 - [Redux Toolkit Documentation](https://redux-toolkit.js.org/tutorials/quick-start) - Learn about Redux Tolkit and it's usage
-- [Typescript Documentation](https://www.typescriptlang.org/docs/) - Learn about Redux Tolkit and it's usage
+- [Typescript Documentation](https://www.typescriptlang.org/docs/) - Learn about Typescript and it's usage
 
 You can check out [the Lego-build's GitHub repository](https://github.com/lego-build/lego-build) - your feedback and contributions are welcome!
 
