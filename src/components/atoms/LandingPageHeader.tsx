@@ -131,6 +131,9 @@ const LandingPageHeader: FC<ILandingPageHeaderProps> = (props) => {
             <div className="mb-4 w-fit cursor-pointer py-3 text-[#001242] hover:text-blue-500">
               Contact
             </div>
+            <div className="cursor-pointer text-[#001242] hover:text-blue-500">
+              Election
+            </div>
             <div className="mt-2 flex flex-col items-start pr-4 text-lg font-semibold">
               <button className="mb-4 w-32 rounded-lg border-[1px] border-blue-600 px-6 py-[8px] text-[#001242] duration-200 ease-in hover:scale-[1.02]">
                 Login
