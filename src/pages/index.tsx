@@ -150,17 +150,172 @@ const Page: NextPage = () => {
       </motion.section>
 
       <motion.section
+        className="flex flex-col-reverse items-center justify-between gap-2 px-5 pb-14 md:flex md:flex-row md:px-10  lg:px-20"
+        ref={ref}
+        variants={variantsOne}
+        initial="initial"
+        whileInView="animate"
+      >
+        <div className="w-full items-center justify-center rounded-md p-4 shadow-md md:w-1/2">
+          <h1 className="mb-4 text-center text-2xl font-semibold md:text-justify lg:text-3xl">
+            Presidential Address
+          </h1>
+          <p className=" mb-3 text-center text-xs font-medium md:text-left md:text-base lg:text-lg">
+            Welcome to the Official Website of SEEES, Uniben Chapter!<br></br>
+            <br></br> On behalf of the SOCIETY of ELECTRICAL and ELECTRONICS
+            ENGINEERING STUDENTS (SEEES), University of Benin Chapter, I warmly
+            welcome you to our website.<br></br>
+            <br></br> We are privileged to represent a vibrant community of
+            nearly a thousand students in the Electrical and Electronics
+            Engineering Department, optimistically moved by the passion for
+            INNOVATION, LEARNING and EXCELLENCE. <br></br>
+            <br></br>We encourage you to engage, connect and grow with us.
+            Together, we are ever ready to shape the future of Electrical and
+            Electronic Engineering! Thank you for visiting, even as we
+            anticipate your continued presence on our website!
+          </p>
+        </div>
+        <div className="p-15 w-full items-center justify-center rounded-md p-16 shadow-md md:w-1/2">
+          <Image
+            src="/SEEES-President-1.jpg"
+            alt="President Image"
+            width={440}
+            height={100}
+          />
+        </div>
+      </motion.section>
+
+      <motion.section
         className="px-5 pb-14 md:px-10  lg:px-20"
         ref={ref}
         variants={variants}
         initial="initial"
-        whileInView="animate">
+        whileInView="animate"
+      >
         <div className="">
           <h1 className="mb-2 text-2xl font-semibold md:mb-10 lg:text-3xl">
             SEEES NEWS
           </h1>
         </div>
         <div className="flex items-center justify-between gap-x-6 overflow-x-scroll scroll-smooth py-4 scrollbar-hide">
+          <div className="min-w-[320px] flex-1 rounded-lg shadow-xl duration-300 ease-in-out hover:scale-105">
+            <div className="mb-4 h-[200px]">
+              <img
+                src="/First-Class-Insight.jpg"
+                alt=""
+                className=" h-full w-full rounded-t-lg object-cover"
+              />
+            </div>
+            <div className="px-3">
+              <div className="my-2 flex items-center justify-between">
+                <h1 className="text-lg font-bold">First Class Insights</h1>
+                <div className="rounded-xl bg-[#001242] px-4 py-2 text-sm text-white lg:text-base">
+                  Event
+                </div>
+              </div>
+              <div className="text-sm font-medium  text-gray-800 lg:text-base">
+                The FYB class visited the Transcorp Power Plant in Ughelli,
+                where students interacted with engineers, gaining practical
+                insights into power generation and Nigeria’s energy supply,
+                enhancing their academic learning with real-world exposure.
+              </div>
+              <div className=" flex items-center justify-between py-4">
+                <p className=" text-base font-semibold">14th jan, 2024</p>
+                <a href="" className="font-semibold text-[#001242] underline">
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="min-w-[320px] flex-1 rounded-lg shadow-xl duration-300 ease-in-out hover:scale-105">
+            <div className="mb-4 h-[200px]">
+              <img
+                src="/Accessing-International-Education.jpg"
+                alt=""
+                className=" h-full w-full rounded-t-lg object-cover"
+              />
+            </div>
+            <div className="px-3">
+              <div className="my-2 flex items-center justify-between">
+                <h1 className="text-lg font-bold">
+                  Accessing International Education Through Scholarship
+                </h1>
+                <div className="rounded-xl bg-[#001242] px-4 py-2 text-sm text-white lg:text-base">
+                  Event
+                </div>
+              </div>
+              <div className="text-sm font-medium  text-gray-800 lg:text-base">
+                The FYB class visited the Transcorp Power Plant in Ughelli,
+                where students interacted with engineers, gaining practical
+                insights into power generation and Nigeria’s energy supply,
+                enhancing their academic learning with real-world exposure.
+              </div>
+              <div className=" flex items-center justify-between py-4">
+                <p className=" text-base font-semibold">9th june, 2024</p>
+                <a href="" className="font-semibold text-[#001242] underline">
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="min-w-[320px] flex-1 rounded-lg shadow-xl duration-300 ease-in-out hover:scale-105">
+            <div className="mb-4 h-[200px]">
+              <img
+                src="/PEESA.jpg"
+                alt=""
+                className=" h-full w-full rounded-t-lg object-cover"
+              />
+            </div>
+            <div className="px-3">
+              <div className="my-2 flex items-center justify-between">
+                <h1 className="text-lg font-bold">PEESA CLUB</h1>
+                <div className="rounded-xl bg-[#001242] px-4 py-2 text-sm text-white lg:text-base">
+                  Event
+                </div>
+              </div>
+              <div className="text-sm font-medium  text-gray-800 lg:text-base">
+                The FYB class visited the Transcorp Power Plant in Ughelli,
+                where students interacted with engineers, gaining practical
+                insights into power generation and Nigeria’s energy supply,
+                enhancing their academic learning with real-world exposure.
+              </div>
+              <div className=" flex items-center justify-between py-4">
+                <p className=" text-base font-semibold">21st april, 2024</p>
+                <a href="" className="font-semibold text-[#001242] underline">
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="min-w-[320px] flex-1 rounded-lg shadow-xl duration-300 ease-in-out hover:scale-105">
+            <div className="mb-4 h-[200px]">
+              <img
+                src="/FYB-2023.jpg"
+                alt=""
+                className=" h-full w-full rounded-t-lg object-cover"
+              />
+            </div>
+            <div className="px-3">
+              <div className="my-2 flex items-center justify-between">
+                <h1 className="text-lg font-bold">Field Trip To Transcorp</h1>
+                <div className="rounded-xl bg-[#001242] px-4 py-2 text-sm text-white lg:text-base">
+                  Event
+                </div>
+              </div>
+              <div className="text-sm font-medium  text-gray-800 lg:text-base">
+                The FYB class visited the Transcorp Power Plant in Ughelli,
+                where students interacted with engineers, gaining practical
+                insights into power generation and Nigeria’s energy supply,
+                enhancing their academic learning with real-world exposure.
+              </div>
+              <div className=" flex items-center justify-between py-4">
+                <p className=" text-base font-semibold">29th june, 2024</p>
+                <a href="" className="font-semibold text-[#001242] underline">
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
           <div className="min-w-[320px] flex-1 rounded-lg shadow-xl duration-300 ease-in-out hover:scale-105">
             <div className="mb-4 h-[200px]">
               <img
@@ -269,7 +424,8 @@ const Page: NextPage = () => {
         className="flex flex-col items-center justify-between gap-x-4 gap-y-2 bg-blue-100 px-5 py-14  md:flex md:flex-row  md:px-10 lg:px-20"
         variants={variantsTwo}
         initial="initial"
-        whileInView="animate">
+        whileInView="animate"
+      >
         <motion.div
           className="w-full pb-8 md:w-1/2"
           variants={variantsTwo}
