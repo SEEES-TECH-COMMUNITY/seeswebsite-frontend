@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-emp`      ``    ty-interface */
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import React, { useState, type FC } from "react";
 import Image from "next/image";
 import { FiMenu } from "react-icons/fi";
