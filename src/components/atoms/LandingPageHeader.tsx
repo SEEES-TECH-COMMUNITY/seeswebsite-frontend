@@ -4,8 +4,9 @@ import Image from "next/image";
 import { FiMenu } from "react-icons/fi";
 import { LiaTimesSolid } from "react-icons/lia";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 
-export interface ILandingPageHeaderProps {}
+export interface ILandingPageHeaderProps { }
 
 const LandingPageHeader: FC<ILandingPageHeaderProps> = (props) => {
   const [sideBarMenu, setSideBarMenu] = useState<boolean>(false);
@@ -80,9 +81,9 @@ const LandingPageHeader: FC<ILandingPageHeaderProps> = (props) => {
           <div className="cursor-pointer text-[#001242] hover:text-blue-500">
             Contact
           </div>
-          <div className="cursor-pointer text-[#001242] hover:text-blue-500">
+          <Link href="https://voting.seees-uniben.org/login" target="_blank" className="cursor-pointer text-[#001242] hover:text-blue-500">
             Election
-          </div>
+          </Link>
         </nav>
         <div className="hidden items-center gap-x-6 text-lg font-semibold lg:flex">
           <button className="text-[#001242] hover:text-blue-500">Login</button>
@@ -110,9 +111,8 @@ const LandingPageHeader: FC<ILandingPageHeaderProps> = (props) => {
             <div className="flex items-center justify-end pr-0 md:pr-4">
               <LiaTimesSolid
                 size="28px"
-                className={`${
-                  sideBarMenu ? "block" : "hidden"
-                } cursor-pointer transition duration-300 ease-in`}
+                className={`${sideBarMenu ? "block" : "hidden"
+                  } cursor-pointer transition duration-300 ease-in`}
                 onClick={() => setSideBarMenu(false)}
               />
             </div>
@@ -131,9 +131,9 @@ const LandingPageHeader: FC<ILandingPageHeaderProps> = (props) => {
             <div className="mb-4 w-fit cursor-pointer py-3 text-[#001242] hover:text-blue-500">
               Contact
             </div>
-            <div className="cursor-pointer text-[#001242] hover:text-blue-500">
+            <Link href="https://voting.seees-uniben.org/login" target="_blank" className="mb-4 cursor-pointer text-[#001242] hover:text-blue-500">
               Election
-            </div>
+            </Link>
             <div className="mt-2 flex flex-col items-start pr-4 text-lg font-semibold">
               <button className="mb-4 w-32 rounded-lg border-[1px] border-blue-600 px-6 py-[8px] text-[#001242] duration-200 ease-in hover:scale-[1.02]">
                 Login
