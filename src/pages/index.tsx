@@ -162,7 +162,7 @@ const Page: NextPage = () => {
           </h1>
           <p className=" mb-3 text-center text-xs font-medium md:text-left md:text-base lg:text-lg">
             Welcome to the Official Website of SEEES, Uniben Chapter!<br></br>
-            <br></br> On behalf of the SOCIETY of ELECTRICAL and ELECTRONICS
+            <br></br> On behalf of the SOCIETY of ELECTRICAL and ELECTRONIC
             ENGINEERING STUDENTS (SEEES), University of Benin Chapter, I warmly
             welcome you to our website.<br></br>
             <br></br> We are privileged to represent a vibrant community of
@@ -175,11 +175,11 @@ const Page: NextPage = () => {
             anticipate your continued presence on our website!
           </p>
         </div>
-        <div className="p-15 w-full items-center justify-center rounded-md p-16 shadow-md md:w-1/2">
+        <div className="w-full items-center justify-center rounded-md p-14 shadow-md md:w-1/2">
           <Image
             src="/SEEES-President-1.jpg"
             alt="President Image"
-            width={440}
+            width={450}
             height={100}
           />
         </div>
