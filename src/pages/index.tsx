@@ -214,10 +214,11 @@ const Page: NextPage = () => {
                 </div>
               </div>
               <div className="text-sm font-medium  text-gray-800 lg:text-base">
-                The FYB class visited the Transcorp Power Plant in Ughelli,
-                where students interacted with engineers, gaining practical
-                insights into power generation and Nigeria’s energy supply,
-                enhancing their academic learning with real-world exposure.
+                First Class Insight offers students a structured approach to
+                achieving academic excellence, providing guidance, resources,
+                and strategies for mastering complex subjects. This program
+                empowers students to reach their full potential with tools and
+                insights for sustained academic success.
               </div>
               <div className=" flex items-center justify-between py-4">
                 <p className=" text-base font-semibold">14th jan, 2024</p>
@@ -245,10 +246,11 @@ const Page: NextPage = () => {
                 </div>
               </div>
               <div className="text-sm font-medium  text-gray-800 lg:text-base">
-                The FYB class visited the Transcorp Power Plant in Ughelli,
-                where students interacted with engineers, gaining practical
-                insights into power generation and Nigeria’s energy supply,
-                enhancing their academic learning with real-world exposure.
+                This initiative provides students with insights and resources
+                for securing scholarships to study abroad. By highlighting
+                various opportunities and application strategies, it empowers
+                students to pursue their academic goals globally and unlock new
+                educational and cultural experiences.
               </div>
               <div className=" flex items-center justify-between py-4">
                 <p className=" text-base font-semibold">9th june, 2024</p>
@@ -274,10 +276,11 @@ const Page: NextPage = () => {
                 </div>
               </div>
               <div className="text-sm font-medium  text-gray-800 lg:text-base">
-                The FYB class visited the Transcorp Power Plant in Ughelli,
-                where students interacted with engineers, gaining practical
-                insights into power generation and Nigeria’s energy supply,
-                enhancing their academic learning with real-world exposure.
+                The PEESA Club empowers students with hands-on skills through
+                workshops and practical projects, members gain essential
+                knowledge in circuit design, handling, and real-world
+                applications. The club fosters technical proficiency and
+                prepares students for future careers in the industry.
               </div>
               <div className=" flex items-center justify-between py-4">
                 <p className=" text-base font-semibold">21st april, 2024</p>
